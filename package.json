@@ -1,0 +1,30 @@
+{
+  "name": "@shipyard-media/router",
+  "version": "1.0.0",
+  "description": "a simple router for react applications",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "esbuild src/index.tsx --outdir=dist",
+    "publish": ""
+  },
+  "author": "toddsurfs",
+  "license": "MIT",
+  "dependencies": {
+    "esbuild": "^0.17.18"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/toddw/router.git"
+  },
+  "keywords": [
+    "simple",
+    "react",
+    "router",
+    "react-router"
+  ],
+  "bugs": {
+    "url": "https://github.com/toddw/router/issues"
+  },
+  "homepage": "https://github.com/toddw/router#readme"
+}
