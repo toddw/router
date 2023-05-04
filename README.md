@@ -11,8 +11,7 @@ import Router, { Route, Link, useRouter } from "@shipyard-media/router";
 function LinkExample({ name }) {
   return (
     <>
-      Hello {name}! The current page is {active}.
-      <Link to="/say/bye/Todd">Say Goodbye!</Link>
+      Hello {name}! <Link to="/say/bye/Todd">Say Goodbye!</Link>
     </>
   );
 }
@@ -21,7 +20,7 @@ function HookExample({ word, name }) {
   const { active, push } = useRouter();
   return (
     <div>
-      {word} {name}!
+      {word} {name}! The current page is {active}.
       <button onClick={() => push("/hello/Ted")}>Say hi to Ted</button>
     </div>
   );
