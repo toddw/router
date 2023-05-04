@@ -12,16 +12,16 @@ function LinkExample({ name }) {
   return (
     <>
       Hello {name}! The current page is {active}.
-      <Link to="/bye/Todd">Say Goodbye!</Link>
+      <Link to="/say/bye/Todd">Say Goodbye!</Link>
     </>
   );
 }
 
-function HookExample() {
+function HookExample({ word, name }) {
   const { active, push } = useRouter();
   return (
     <div>
-      Goodbye!
+      {word} {name}!
       <button onClick={() => push("/hello/Ted")}>Say hi to Ted</button>
     </div>
   );
@@ -31,7 +31,7 @@ export default function App() {
   return (
     <Router>
       <Route path="/hello/:name" component={LinkExample} />
-      <Route path="/bye/:name" component={HookExample} />
+      <Route path="/say/:word/:name" component={HookExample} />
       <Route path="/.*" component={() => <div>Catch All</div>} />
     </Router>
   );
