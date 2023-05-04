@@ -60,10 +60,12 @@ export function Link({
   children,
   to,
   ...other
-}: {
-  children: ReactNode;
-  to: string;
-}) {
+}:
+  | {
+      children: ReactNode;
+      to: string;
+    }
+  | Record<string, any>) {
   const { push } = useRouter();
 
   function handleClick(e: React.MouseEvent<HTMLAnchorElement>) {

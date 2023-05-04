@@ -1,6 +1,6 @@
 {
   "name": "@shipyard-media/router",
-  "version": "1.0.15",
+  "version": "1.0.16",
   "description": "a simple router for react applications",
   "main": "dist/index.js",
   "files": ["/dist", "package.json", "README.md"],
