@@ -1,6 +1,6 @@
 {
   "name": "@shipyard-media/router",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "description": "a simple router for react applications",
   "main": "dist/index.js",
   "files": ["/dist", "package.json", "README.md"],
@@ -10,9 +10,7 @@
   },
   "author": "toddsurfs",
   "license": "MIT",
-  "dependencies": {
-    "esbuild": "^0.17.18"
-  },
+  "dependencies": {},
   "peerDependencies": {
     "react": ">=18.2.0",
     "react-dom": ">=18.2.0"
