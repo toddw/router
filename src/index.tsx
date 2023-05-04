@@ -11,6 +11,8 @@ import React, {
 interface RouteProps {
   path: string;
   component: React.ComponentType<any>;
+  onBefore: (args: any) => Promise<void>;
+  onAfter: (args: any) => Promise<void>;
 }
 
 export const Route: React.FC<RouteProps> = () => {
@@ -45,6 +47,29 @@ export default function Router({ children }: { children: ReactNode }) {
     <RouteContext.Provider value={{ path, setPath }}>
       <RouteMatcher>{children}</RouteMatcher>
     </RouteContext.Provider>
+  );
+}
+
+export function Link({
+  children,
+  to,
+  ...other
+}: {
+  children: ReactNode;
+  to: string;
+  other: Record<string, any>;
+}) {
+  const { push } = useRouter();
+
+  function handleClick(e: React.MouseEvent<HTMLAnchorElement>) {
+    e.preventDefault();
+    push(to);
+  }
+
+  return (
+    <a onClick={handleClick} {...other}>
+      {children}
+    </a>
   );
 }
 

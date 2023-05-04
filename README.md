@@ -6,7 +6,7 @@ For those that don't need the complexity of some of the existing solutions this 
 
 ```typescript
 import React from "react";
-import Router, { Route, useRouter } from "@shipyard-media/router";
+import Router, { Route, Link, useRouter } from "@shipyard-media/router";
 
 function Greeter({ name }: { name: string }) {
   const { active, push } = useRouter();
@@ -14,9 +14,8 @@ function Greeter({ name }: { name: string }) {
     <div>
       Hello {name}!<br />
       Current page {active} <br />
-      <button onClick={() => push("/hello/Todd")}>Say hi to Todd</button>
-      <button onClick={() => push("/hello/Ted")}>Say hi to Ted</button>
-      <button onClick={() => push("/hello/Tom")}>Say hi to Tom</button>
+      <Link to="/hello/Todd">With a Link (Todd)</Link> or
+      <button onClick={() => push("/hello/Ted")}>With a Button (Ted)</button>
     </div>
   );
 }
