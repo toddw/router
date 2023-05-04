@@ -32,7 +32,9 @@ export default function Router({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     window.addEventListener("popstate", (event) => {
-      setPath(event.state.path);
+      if (event.state && event.state.path) {
+        setPath(event.state.path);
+      }
     });
   }, []);
 
