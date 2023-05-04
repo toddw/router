@@ -31,9 +31,12 @@ export default function Router({ children }: { children: ReactNode }) {
   );
 
   useEffect(() => {
+    const initialPath = new URL(window.location.href).pathname;
     window.addEventListener("popstate", (event) => {
       if (event.state && event.state.path) {
         setPath(event.state.path);
+      } else {
+        setPath(initialPath);
       }
     });
   }, []);
