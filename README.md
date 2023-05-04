@@ -4,18 +4,25 @@ For those that don't need the complexity of some of the existing solutions this 
 
 # Example
 
-```typescript
+```javascript
 import React from "react";
 import Router, { Route, Link, useRouter } from "@shipyard-media/router";
 
-function Greeter({ name }: { name: string }) {
+function LinkExample({ name }) {
+  return (
+    <>
+      Hello {name}! The current page is {active}.
+      <Link to="/bye/Todd">Say Goodbye!</Link>
+    </>
+  );
+}
+
+function HookExample() {
   const { active, push } = useRouter();
   return (
     <div>
-      Hello {name}!<br />
-      Current page {active} <br />
-      <Link to="/hello/Todd">With a Link (Todd)</Link> or
-      <button onClick={() => push("/hello/Ted")}>With a Button (Ted)</button>
+      Goodbye!
+      <button onClick={() => push("/hello/Ted")}>Say hi to Ted</button>
     </div>
   );
 }
@@ -23,7 +30,8 @@ function Greeter({ name }: { name: string }) {
 export default function App() {
   return (
     <Router>
-      <Route path="/hello/:name" component={Greeter} />
+      <Route path="/hello/:name" component={LinkExample} />
+      <Route path="/bye/:name" component={HookExample} />
       <Route path="/.*" component={() => <div>Catch All</div>} />
     </Router>
   );
