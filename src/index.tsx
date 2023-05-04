@@ -67,7 +67,7 @@ export function Link({
   }
 
   return (
-    <a onClick={handleClick} {...other}>
+    <a href={to} onClick={handleClick} {...other}>
       {children}
     </a>
   );
