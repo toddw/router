@@ -22,12 +22,20 @@ export const Route: React.FC<RouteProps> = () => {
 const RouteContext = createContext<{
   path: string;
   setPath: (path: string) => void;
+  ignoreSame: boolean;
 }>({
   path: "",
   setPath: () => null,
+  ignoreSame: true,
 });
 
-export default function Router({ children }: { children: ReactNode }) {
+export default function Router({
+  children,
+  ignoreSame = true,
+}: {
+  children: ReactNode;
+  ignoreSame?: boolean;
+}) {
   const [path, setPath] = useState<string>(
     new URL(window.location.href).pathname
   );
@@ -44,7 +52,7 @@ export default function Router({ children }: { children: ReactNode }) {
   }, []);
 
   return (
-    <RouteContext.Provider value={{ path, setPath }}>
+    <RouteContext.Provider value={{ path, setPath, ignoreSame }}>
       <RouteMatcher>{children}</RouteMatcher>
     </RouteContext.Provider>
   );
@@ -74,9 +82,14 @@ export function Link({
 }
 
 export function useRouter() {
-  const { path, setPath } = useContext(RouteContext);
+  const { path, setPath, ignoreSame } = useContext(RouteContext);
 
   function push(newPath: string) {
+    // Default behavior is to not push the state if it's going ot the exact
+    // same place. Change this with <Router ignoreSame={false}>
+    if (newPath === path && ignoreSame) {
+      return;
+    }
     window.history.pushState({ path: newPath }, newPath, newPath);
     setPath(newPath);
   }
