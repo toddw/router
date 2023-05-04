@@ -63,7 +63,6 @@ export function Link({
 }: {
   children: ReactNode;
   to: string;
-  other: Record<string, any>;
 }) {
   const { push } = useRouter();
 
