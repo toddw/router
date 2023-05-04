@@ -11,8 +11,6 @@ import React, {
 interface RouteProps {
   path: string;
   component: React.ComponentType<any>;
-  onBefore: (args: any) => Promise<void>;
-  onAfter: (args: any) => Promise<void>;
 }
 
 export const Route: React.FC<RouteProps> = () => {
