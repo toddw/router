@@ -89,7 +89,11 @@ export function useRouter() {
     if (newPath === path && ignoreSame) {
       return;
     }
-    window.history.pushState({ path: newPath }, newPath, newPath);
+    window.history.pushState(
+      { path: newPath, lastPath: path },
+      newPath,
+      newPath
+    );
     setPath(newPath);
   }
 
