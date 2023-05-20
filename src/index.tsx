@@ -13,9 +13,9 @@ interface RouteProps {
   component: React.ComponentType<any>;
 }
 
-export const Route: React.FC<RouteProps> = () => {
+export function Route(_props: RouteProps) {
   return null;
-};
+}
 
 const RouteContext = createContext<{
   path: string;
@@ -103,21 +103,29 @@ export function useRouter() {
   };
 }
 
-function RouteMatcher({ children }: { children: ReactNode }) {
+export function RouteMatcher({ children }: { children: ReactNode }) {
   const { path: currentPath } = useContext(RouteContext);
   const routes = Children.toArray(children) as ReactElement<RouteProps>[];
+  const output: ReactNode[] = [];
+  let matched = false;
+  let i = 0;
   for (const el of routes) {
-    const {
-      props: { path: matchPath, component: Component },
-    } = el;
-    const args = match(matchPath, currentPath);
+    if (el.type !== Route) {
+      output.push(<React.Fragment key={i++}>{el}</React.Fragment>);
+    } else if (!matched) {
+      const {
+        props: { path: matchPath, component: Component },
+      } = el;
+      const args = match(matchPath, currentPath);
 
-    if (args) {
-      return <Component {...args} />;
+      if (args) {
+        matched = true;
+        output.push(<Component key={i++} {...args} />);
+      }
     }
   }
 
-  return null;
+  return <>{output}</>;
 }
 
 function match(route: string, href: string) {
