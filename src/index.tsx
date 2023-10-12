@@ -13,6 +13,28 @@ interface RouteProps {
   component: React.ComponentType<any>;
 }
 
+// @ts-ignore
+if (typeof window === "undefined" && typeof global !== "undefined") {
+  // @ts-ignore
+  global.window = {
+    addEventListener: () => undefined,
+    location: {
+      href: ""
+    },
+    history: {
+      pushState: () => undefined,
+    }
+  }
+}
+
+// @ts-ignore
+if (typeof URL === "undefined" && typeof global !== "undefined") {
+  // @ts-ignore
+  global.URL = (pathname) => ({
+    pathname
+  })
+}
+
 export function Route(_props: RouteProps) {
   return null;
 }
@@ -30,21 +52,23 @@ const RouteContext = createContext<{
 export default function Router({
   children,
   ignoreSame = true,
+  initialPath,
 }: {
   children: ReactNode;
   ignoreSame?: boolean;
+  initialPath?: string;
 }) {
   const [path, setPath] = useState<string>(
-    new URL(window.location.href).pathname
+    window.location.href ? new URL(window.location.href).pathname : initialPath || ""
   );
 
   useEffect(() => {
-    const initialPath = new URL(window.location.href).pathname;
+    const path = window.location.href ? new URL(window.location.href).pathname : initialPath || ""
     window.addEventListener("popstate", (event) => {
       if (event.state && event.state.path) {
         setPath(event.state.path);
       } else {
-        setPath(initialPath);
+        setPath(path);
       }
     });
   }, []);
